@@ -7,11 +7,12 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Common;
+using HackATon.PathB.Cons;
 using Newtonsoft.Json;
 
 namespace HackATon.PathB.easy
 {
-    public class MayanCalander
+    public class MayanCalander : IChallengeClearer
     {
         private readonly HackTheFutureClient _hackTheFutureClient;
         public MayanCalander(HackTheFutureClient hackTheFutureClient)

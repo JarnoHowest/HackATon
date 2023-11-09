@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HackATon.PathB.Cons.Medium
 {
-    public class MatchingHieroglyphs
+    public class MatchingHieroglyphs : IChallengeClearer
     {
         private readonly HackTheFutureClient _hackTheFutureClient;
         public MatchingHieroglyphs(HackTheFutureClient hackTheFutureClient)
