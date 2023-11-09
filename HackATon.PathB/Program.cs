@@ -22,4 +22,4 @@ Console.WriteLine("-------------------------------------");
 Console.WriteLine("Next challenge");
 MayanMathCalculator mayanMathCalculator = new MayanMathCalculator(hackTheFutureClient);
 Console.WriteLine(await mayanMathCalculator.StartChallenge());
-Console.WriteLine(await )
+Console.WriteLine(await mayanMathCalculator.ClearChallenge());
