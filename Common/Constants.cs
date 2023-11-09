@@ -10,5 +10,6 @@ namespace Common
     {
         public const string UserName = "*";
         public const string Password = "ETmpRH6seu";
+        public const string FailedPuzzle = "You did not solve the puzzle";
     }
 }

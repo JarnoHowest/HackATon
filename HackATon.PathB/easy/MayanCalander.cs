@@ -13,25 +13,24 @@ namespace HackATon.PathB.easy
 {
     public class MayanCalander
     {
-        private HackTheFutureClient hackTheFutureClient;
-        public MayanCalander()
+        private readonly HackTheFutureClient _hackTheFutureClient;
+        public MayanCalander(HackTheFutureClient hackTheFutureClient)
         {
-            this.hackTheFutureClient = new HackTheFutureClient();
-            
+            _hackTheFutureClient = hackTheFutureClient;
         }
         public async Task<string> StartChallenge()
         {
-            await hackTheFutureClient.Login(Constants.UserName, Constants.Password);
-            var result = await hackTheFutureClient.GetAsync("/api/path/b/easy/start");
+            await _hackTheFutureClient.Login(Constants.UserName, Constants.Password);
+            var result = await _hackTheFutureClient.GetAsync("/api/path/b/easy/start");
             if (!result.IsSuccessStatusCode)
             {
                 return "Challenge not started";
             }
             return "Challenge started";
         }
-        public async Task<MayanCalendarChallengeDto> GetChallengeInfo()
+        private async Task<MayanCalendarChallengeDto> GetChallengeInfo()
         {
-            var result = await hackTheFutureClient.GetAsync("/api/path/b/easy/puzzle");
+            var result = await _hackTheFutureClient.GetAsync("/api/path/b/easy/puzzle");
             if (!result.IsSuccessStatusCode)
             {
                 throw new Exception();
@@ -51,14 +50,14 @@ namespace HackATon.PathB.easy
             }
             catch(Exception ex)
             {
-                return "You did not solve the puzzle";
+                return Constants.FailedPuzzle;
             }
             
         }
 
         private async Task SendAnswerOfChallenge(int answer)
         {
-            var result = await hackTheFutureClient.PostAsJsonAsync<int>($"/api/path/b/easy/puzzle", answer);
+            var result = await _hackTheFutureClient.PostAsJsonAsync<int>($"/api/path/b/easy/puzzle", answer);
             if (!result.IsSuccessStatusCode)
             {
                 throw new Exception();
