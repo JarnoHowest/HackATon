@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HackATon.PathB.Cons
 {
-    public interface IChallengeClearer
+    public interface IChallengeClearer 
     {
         public Task<string> ClearChallenge();
         public Task<string> StartChallenge();
