@@ -22,15 +22,14 @@ namespace PathA
 
             foreach (char c in input)
             {
-                try
+                if (alphabet.ContainsKey(c))
                 {
                     var value = alphabet[c];
                     decodedString += value;
-                } catch (Exception e)
+                } else
                 {
                     decodedString += c;
                 }
-
             }
             return decodedString;
         }
