@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HackATon.PathB.Cons.Medium
 {
-    public class MatchingHieroglyphs
+    public class MatchingHieroglyphs : IChallengeClearer
     {
         private readonly HackTheFutureClient _hackTheFutureClient;
         public MatchingHieroglyphs(HackTheFutureClient hackTheFutureClient)
@@ -24,7 +24,7 @@ namespace HackATon.PathB.Cons.Medium
             {
                 return "Challenge not started";
             }
-            return "Challenge started";
+            return "Matching hieroglyphs challenge started";
         }
         //glyphs that show up in all is what you send
         public async Task<string> ClearChallenge()
@@ -49,8 +49,7 @@ namespace HackATon.PathB.Cons.Medium
                 throw new Exception();
             }
             var content = await result.Content.ReadAsStringAsync();
-            var challengeInfo = JsonConvert.DeserializeObject<string[]>(content);
-            return challengeInfo;
+            return JsonConvert.DeserializeObject<string[]>(content);
         }
         private string FilterHieroglyphs(string[] glyphs)
         {
