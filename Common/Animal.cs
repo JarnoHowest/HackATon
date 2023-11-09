@@ -7,5 +7,5 @@ public class Animal
     public int AgeInDays { get; set; }
     public int WeightInGrams { get; set; }
     public int HeightInCm { get; set; }
-    
+    public List<Animal> Friends { get; set; }
 }

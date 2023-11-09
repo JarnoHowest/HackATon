@@ -10,20 +10,20 @@ namespace PathA
 {
     public class Challenge1
     {
-        public async void Run()
+        public async void Run(HackTheFutureClient hackTheFutureClient)
         {
-            HackTheFutureClient hackTheFutureClient = new HackTheFutureClient();
-            await hackTheFutureClient.Login("*", "ETmpRH6seu");
-
+            //Get string
             Console.WriteLine("Challenge A1:");
             await hackTheFutureClient.GetAsync("api/path/a/easy/start");
             var response = await hackTheFutureClient.GetAsync("api/path/a/easy/puzzle");
             var contents = await response.Content.ReadAsStringAsync();
 
+            //Call decoder
             MayaDecoder decoder = new MayaDecoder();
             var decodeResult = decoder.Decode(contents.ToString());
             Console.WriteLine(decodeResult);
 
+            //Post response
             response = await hackTheFutureClient.PostAsJsonAsync("api/path/a/easy/puzzle", decodeResult);
             contents = await response.Content.ReadAsStringAsync();
             Console.WriteLine(contents);

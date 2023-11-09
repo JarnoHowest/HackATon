@@ -12,30 +12,30 @@ namespace PathA
 {
     public class Challenge2
     {
-        public async void Run()
+        public async void Run(HackTheFutureClient hackTheFutureClient)
         {
-            HackTheFutureClient hackTheFutureClient = new HackTheFutureClient();
-            await hackTheFutureClient.Login("*", "ETmpRH6seu");
-
+            //Get json
             Console.WriteLine("Challenge A2:");
             await hackTheFutureClient.GetAsync("api/path/a/medium/start");
             var response = await hackTheFutureClient.GetAsync("api/path/a/medium/puzzle");
             var contents = await response.Content.ReadAsStringAsync();
             
-            Lianen? myDeserializedClass = JsonConvert.DeserializeObject<Lianen>(contents);
+            //Deserialize json
+            VineNavigationChallengeDto? myDeserializedClass = JsonConvert.DeserializeObject<VineNavigationChallengeDto>(contents);
 
-            Console.WriteLine("amount of vines: " + myDeserializedClass.amountOfVines);
-            Console.WriteLine("start: " + myDeserializedClass.start);
+            //Print data
+            Console.WriteLine("amount of vines: " + myDeserializedClass.AmountOfVines);
+            Console.WriteLine("start: " + myDeserializedClass.Start);
             Console.WriteLine("directions:");
 
-            int size = ((int)Math.Sqrt(myDeserializedClass.amountOfVines) -1);
-
-            int[,] board = new int[size, size];
-            var startList = myDeserializedClass.start.Split(",");
+            //Set variables
+            int size = ((int)Math.Sqrt(myDeserializedClass.AmountOfVines) -1);
+            var startList = myDeserializedClass.Start.Split(",");
             int x = int.Parse(startList[0]);
             var y = int.Parse(startList[1]);
 
-            foreach( var direction in myDeserializedClass.directions)
+            //Run over directions
+            foreach( var direction in myDeserializedClass.Directions)
             {
                 Console.WriteLine(direction.ToString());
                 switch (direction)
@@ -88,17 +88,14 @@ namespace PathA
                 Console.WriteLine("x: " + x + " y:" + y);
             }
 
+            //Create result
             string result = x.ToString() + " ," + y.ToString();
             Console.WriteLine(result);
+
+            //Post result
             response = await hackTheFutureClient.PostAsJsonAsync("api/path/a/medium/puzzle", result);
             contents = await response.Content.ReadAsStringAsync();
             Console.WriteLine(contents);
         }
     }
-}
-public class Lianen
-{
-    public int amountOfVines { get; set; }
-    public string start { get; set; }
-    public List<string> directions { get; set; }
 }
